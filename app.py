@@ -152,7 +152,6 @@ tab1, tab2 = st.tabs([
     "📊 Evaluation Dashboard"
 ])
 
-```python
 # ── TAB PENCARIAN ──
 with tab1:
 
@@ -283,7 +282,6 @@ with tab2:
         gt_df,
         use_container_width=True
     )
-```
 
     if st.button("🚀 Jalankan Evaluasi", use_container_width=True):
         def evaluate(search_fn, queries):
