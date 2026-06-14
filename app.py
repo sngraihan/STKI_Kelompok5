@@ -57,13 +57,40 @@ def search_bm25(query, top_k=5):
              'score': round(float(scores[i]), 4), 'lirik': df.iloc[i]['lirik'][:300]}
             for r, i in enumerate(top_idx)]
 
-# Sidebar
-st.sidebar.title("🎵 STKI Kelompok 5")
-st.sidebar.caption("Sistem Temu Kembali Informasi")
-st.sidebar.markdown("---")
-st.sidebar.markdown(f"**Dataset:** {len(df):,} lagu")
-st.sidebar.markdown(f"**Fitur TF-IDF:** {tfidf_matrix.shape[1]:,}")
-st.sidebar.markdown(f"**Model:** TF-IDF & BM25")
+# =========================
+# SIDEBAR
+# =========================
+
+with st.sidebar:
+
+    st.title("🎵 LyricMatch")
+
+    st.caption(
+        "Smart Lyrics Search Engine"
+    )
+
+    st.markdown("---")
+
+    st.metric(
+        "🎼 Jumlah Lagu",
+        f"{len(df):,}"
+    )
+
+    st.metric(
+        "📚 Fitur TF-IDF",
+        f"{tfidf_matrix.shape[1]:,}"
+    )
+
+    st.success("Model Aktif")
+
+    st.write("✅ TF-IDF + Cosine Similarity")
+    st.write("✅ BM25")
+
+    st.markdown("---")
+
+    st.caption(
+        "Kelompok 5 • Teknik Informatika • Universitas Lampung"
+    )
 
 tab1, tab2 = st.tabs(["🔍 Pencarian", "📊 Evaluasi"])
 
