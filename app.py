@@ -154,27 +154,34 @@ tab1, tab2 = st.tabs([
 
 # ── TAB PENCARIAN ──
 with tab1:
-    st.markdown(
-    "## 🔍 Cari Lagu dari Potongan Lirik"
-)
 
-st.info(
-    "Masukkan sebagian lirik lagu yang Anda ingat. "
-    "Sistem akan mencari lagu paling relevan "
-    "menggunakan TF-IDF dan BM25."
-)
+    st.markdown(
+        "## 🔍 Cari Lagu dari Potongan Lirik"
+    )
+
+    st.info(
+        "Masukkan sebagian lirik lagu yang Anda ingat. "
+        "Sistem akan mencari lagu paling relevan "
+        "menggunakan TF-IDF dan BM25."
+    )
 
     query = st.text_input(
-    "",
-    placeholder="🎵 Contoh: darling hold my hand ..."
-)
+        "",
+        placeholder="🎵 Contoh: darling hold my hand ..."
+    )
+
     if query:
+
         preprocessed = preprocess(query)
-        st.caption(f"Hasil preprocessing: `{preprocessed}`")
+
+        st.caption(
+            f"Hasil preprocessing: `{preprocessed}`"
+        )
 
         col1, col2 = st.columns(2)
 
         with col1:
+            
            st.markdown(
     "### 🔵 TF-IDF + Cosine Similarity"
 )
