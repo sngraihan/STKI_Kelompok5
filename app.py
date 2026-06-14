@@ -185,10 +185,10 @@ with tab1:
            st.markdown(
     "### 🔵 TF-IDF + Cosine Similarity"
 )
-            results_tfidf = search_tfidf(query)
-            for r in results_tfidf:
+    results_tfidf = search_tfidf(query)
+    for r in results_tfidf:
 
-    with st.expander(
+        with st.expander(
         f"🎵 #{r['rank']} {r['judul']}"
     ):
 
