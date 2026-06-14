@@ -144,7 +144,7 @@ with st.sidebar:
     st.markdown("---")
 
     st.caption(
-        "Kelompok 5 • Teknik Informatika • Universitas Lampung"
+        "Kelompok 5 • Temu Kembali Informasi • S1 Ilmu Komputer • Universitas Lampung"
     )
 
 tab1, tab2 = st.tabs([
