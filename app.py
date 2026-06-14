@@ -12,7 +12,11 @@ import nltk
 nltk.download('punkt_tab', quiet=True)
 nltk.download('stopwords', quiet=True)
 
-st.set_page_config(page_title="STKI - Pencarian Lirik Lagu", page_icon="🎵", layout="wide")
+st.set_page_config(
+    page_title="LyricMatch",
+    page_icon="🎵",
+    layout="wide"
+)
 
 # Load model
 @st.cache_resource
