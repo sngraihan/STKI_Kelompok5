@@ -147,15 +147,27 @@ with st.sidebar:
         "Kelompok 5 • Teknik Informatika • Universitas Lampung"
     )
 
-tab1, tab2 = st.tabs(["🔍 Pencarian", "📊 Evaluasi"])
+tab1, tab2 = st.tabs([
+    "🔍 Lyrics Search",
+    "📊 Evaluation Dashboard"
+])
 
 # ── TAB PENCARIAN ──
 with tab1:
-    st.title("Pencarian Lirik Lagu")
-    st.caption("Masukkan potongan lirik atau kata kunci untuk mencari lagu.")
+    st.markdown(
+    "## 🔍 Cari Lagu dari Potongan Lirik"
+)
 
-    query = st.text_input("Query:", placeholder="contoh: darling hold my hand")
+st.info(
+    "Masukkan sebagian lirik lagu yang Anda ingat. "
+    "Sistem akan mencari lagu paling relevan "
+    "menggunakan TF-IDF dan BM25."
+)
 
+    query = st.text_input(
+    "",
+    placeholder="🎵 Contoh: darling hold my hand ..."
+)
     if query:
         preprocessed = preprocess(query)
         st.caption(f"Hasil preprocessing: `{preprocessed}`")
@@ -163,23 +175,65 @@ with tab1:
         col1, col2 = st.columns(2)
 
         with col1:
-            st.subheader("TF-IDF + Cosine Similarity")
+           st.markdown(
+    "### 🔵 TF-IDF + Cosine Similarity"
+)
             results_tfidf = search_tfidf(query)
             for r in results_tfidf:
-                with st.expander(f"#{r['rank']} {r['judul']} — {r['penyanyi']} ({r['score']})"):
-                    st.code(r['lirik'], language=None)
+
+    with st.expander(
+        f"🎵 #{r['rank']} {r['judul']}"
+    ):
+
+        st.write(
+            f"**Penyanyi:** {r['penyanyi']}"
+        )
+
+        st.metric(
+            "Skor Relevansi",
+            r['score']
+        )
+
+        st.code(
+            r['lirik'],
+            language=None
+        )
 
         with col2:
-            st.subheader("BM25 (Okapi)")
+            st.markdown(
+    "### 🟣 BM25 Retrieval"
+)
             results_bm25 = search_bm25(query)
             for r in results_bm25:
-                with st.expander(f"#{r['rank']} {r['judul']} — {r['penyanyi']} ({r['score']})"):
-                    st.code(r['lirik'], language=None)
+
+    with st.expander(
+        f"🎵 #{r['rank']} {r['judul']}"
+    ):
+
+        st.write(
+            f"**Penyanyi:** {r['penyanyi']}"
+        )
+
+        st.metric(
+            "Skor Relevansi",
+            r['score']
+        )
+
+        st.code(
+            r['lirik'],
+            language=None
+        )
 
 # ── TAB EVALUASI ──
 with tab2:
-    st.title("Evaluasi Performa Sistem")
-    st.caption("Membandingkan TF-IDF vs BM25 menggunakan 10 query uji dengan ground truth.")
+    st.markdown(
+    "## 📊 Evaluation Dashboard"
+)
+
+st.info(
+    "Perbandingan performa TF-IDF dan BM25 "
+    "menggunakan 10 query uji."
+)
 
     # Buat ground truth dari dataset
     @st.cache_data
@@ -286,4 +340,25 @@ with tab2:
         axes[1].legend()
 
         plt.tight_layout()
-        st.pyplot(fig)
+        st.markdown("---")
+
+st.markdown("""
+<div style="text-align:center;color:gray;">
+
+<h3>🎵 LyricMatch</h3>
+
+<p>
+Smart Lyrics Search Engine
+</p>
+
+<p>
+Kelompok 5
+</p>
+
+<p>
+Teknik Informatika
+Universitas Lampung
+</p>
+
+</div>
+""", unsafe_allow_html=True)
