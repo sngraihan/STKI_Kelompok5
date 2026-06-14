@@ -1,67 +1,70 @@
-# 🎵 SISTEM TEMU KEMBALI INFORMASI PADA PENCARIAN LIRIK LAGU MENGGUNAKAN METODE *TF-IDF* DAN *BM25*
+# 🎵 LyrikMatch
 
-## 📖 Deskripsi Proyek
+### Smart Lyrics Search Engine menggunakan TF-IDF dan BM25
 
-Proyek ini merupakan implementasi Sistem Temu Kembali Informasi (*Information Retrieval System*) yang digunakan untuk mencari lagu berdasarkan potongan lirik yang dimasukkan oleh pengguna. Sistem memanfaatkan metode *Term Frequency-Inverse Document Frequency* (*TF-IDF*) dan *Best Matching 25* (*BM25*) untuk menghitung tingkat relevansi antara *query* dan dokumen lirik lagu.
-
-Pengguna dapat memasukkan sebagian lirik lagu yang diingat, kemudian sistem akan menampilkan daftar lagu yang paling relevan berdasarkan skor kemiripan yang dihasilkan oleh metode *TF-IDF* dan *BM25*. Aplikasi dikembangkan menggunakan Python dan Streamlit sehingga dapat diakses melalui antarmuka web yang interaktif dan mudah digunakan.
+LyrikMatch merupakan aplikasi pencarian lirik lagu berbasis Sistem Temu Kembali Informasi (*Information Retrieval System*) yang memungkinkan pengguna menemukan lagu hanya dengan memasukkan potongan lirik yang diingat. Sistem memanfaatkan metode *Term Frequency-Inverse Document Frequency* (*TF-IDF*) dan *Best Matching 25* (*BM25*) untuk menghitung tingkat relevansi antara *query* dan dokumen lirik lagu sehingga menghasilkan pencarian yang akurat dan relevan.
 
 ---
 
 ## 🌐 Demo Aplikasi
 
-**Live Demo:**
+🔗 **Live Demo**  
+https://sngraihan-stki-kelompok5-app-hore3h.streamlit.app/
 
-🔗 https://sngraihan-stki-kelompok5-app-hore3h.streamlit.app/
+---
+
+## 📖 Deskripsi Proyek
+
+Banyak pengguna sering kali hanya mengingat sebagian lirik lagu tanpa mengetahui judul maupun penyanyinya. LyrikMatch dikembangkan untuk membantu pengguna menemukan lagu berdasarkan potongan lirik yang dimasukkan. Sistem melakukan proses pencarian menggunakan metode TF-IDF dan BM25 untuk menghitung relevansi antara *query* dan koleksi dokumen lirik lagu.
 
 ---
 
 ## 🎯 Tujuan Proyek
 
-- Membangun Sistem Temu Kembali Informasi untuk pencarian lirik lagu.
-- Mengimplementasikan metode *TF-IDF* dan *BM25* dalam proses pencarian dokumen.
+- Membangun sistem pencarian lirik lagu berbasis Sistem Temu Kembali Informasi.
+- Mengimplementasikan metode TF-IDF dan BM25 dalam proses pencarian dokumen.
 - Membandingkan performa kedua metode dalam menemukan dokumen yang relevan.
-- Mengevaluasi performa sistem menggunakan metrik *Precision@1*, *Precision@3*, *Recall@3*, dan *Mean Average Precision* (*MAP*).
+- Mengevaluasi performa sistem menggunakan metrik evaluasi standar.
 
 ---
 
 ## 📂 Dataset
 
-Dataset yang digunakan berasal dari **Spotify Songs Dataset** yang diperoleh dari Kaggle.
+Dataset yang digunakan berasal dari **Spotify Songs Dataset** yang berisi informasi lagu dari berbagai genre musik.
 
-Dataset memuat informasi berupa:
+Atribut yang digunakan dalam penelitian meliputi:
 
 - Judul Lagu
 - Nama Penyanyi
 - Genre
 - Lirik Lagu
 
-Dataset awal terdiri dari **551.443 lagu**, kemudian dilakukan proses penyaringan sehingga diperoleh **525.391 lagu** yang memenuhi kriteria. Penelitian ini menggunakan sampel sebanyak **50.000 dokumen lirik lagu** untuk proses pembangunan dan evaluasi sistem.
+Dataset awal terdiri dari **551.443 lagu**, kemudian dilakukan proses penyaringan sehingga diperoleh **525.391 lagu** yang memenuhi kriteria penelitian. Sistem menggunakan **50.000 dokumen lirik lagu** sebagai sampel untuk proses pembangunan dan evaluasi.
 
 ---
 
 ## ⚙️ Metode yang Digunakan
 
-### 1. *Text Preprocessing*
+### 1. Text Preprocessing
 
 Tahapan *preprocessing* yang diterapkan meliputi:
 
-- *Case Folding*
-- *Cleaning*
-- *Tokenization*
-- *Stopword Removal*
+- Case Folding
+- Cleaning
+- Tokenization
+- Stopword Removal
 
-### 2. *TF-IDF*
+### 2. TF-IDF
 
-Metode *Term Frequency-Inverse Document Frequency* (*TF-IDF*) digunakan untuk menghitung bobot setiap kata berdasarkan frekuensi kemunculannya dalam dokumen dan seluruh koleksi dokumen.
+*Term Frequency-Inverse Document Frequency* (*TF-IDF*) digunakan untuk memberikan bobot pada setiap kata berdasarkan tingkat kepentingannya dalam dokumen dan koleksi dokumen.
 
-### 3. *Cosine Similarity*
+### 3. Cosine Similarity
 
-*Cosine Similarity* digunakan untuk menghitung tingkat kemiripan antara *query* dan dokumen yang telah direpresentasikan dalam bentuk vektor *TF-IDF*.
+*Cosine Similarity* digunakan untuk menghitung tingkat kemiripan antara *query* dan dokumen yang telah direpresentasikan dalam bentuk vektor TF-IDF.
 
-### 4. *BM25*
+### 4. BM25
 
-*Best Matching 25* (*BM25*) merupakan model temu kembali informasi berbasis probabilistik yang mempertimbangkan frekuensi term dan panjang dokumen dalam proses pemeringkatan hasil pencarian.
+*Best Matching 25* (*BM25*) merupakan model temu kembali informasi berbasis probabilistik yang mempertimbangkan frekuensi kemunculan kata dan panjang dokumen dalam proses pemeringkatan hasil pencarian.
 
 ---
 
@@ -87,16 +90,7 @@ Dataset Spotify Songs
 
 ---
 
-## 📊 Evaluasi Sistem
-
-Evaluasi sistem dilakukan menggunakan beberapa metrik, yaitu:
-
-- *Precision@1*
-- *Precision@3*
-- *Recall@3*
-- *Mean Average Precision (MAP)*
-
-### Hasil Evaluasi
+## 📊 Hasil Evaluasi
 
 | Metrik | TF-IDF | BM25 |
 |---------|---------|---------|
@@ -105,7 +99,7 @@ Evaluasi sistem dilakukan menggunakan beberapa metrik, yaitu:
 | Precision@3 | 33% | 33% |
 | Recall@3 | 100% | 100% |
 
-Hasil pengujian menunjukkan bahwa metode **BM25** memberikan performa yang lebih baik dibandingkan metode **TF-IDF**, terutama pada metrik *MAP* dan *Precision@1*.
+Hasil pengujian menunjukkan bahwa metode **BM25** memberikan performa yang lebih baik dibandingkan metode **TF-IDF**, terutama pada metrik MAP dan Precision@1.
 
 ---
 
@@ -128,13 +122,13 @@ Hasil pengujian menunjukkan bahwa metode **BM25** memberikan performa yang lebih
 ### Clone Repository
 
 ```bash
-git clone https://github.com/username/repository-name.git
+git clone https://github.com/sngraihan/STKI_Kelompok5.git
 ```
 
 ### Masuk ke Folder Proyek
 
 ```bash
-cd repository-name
+cd STKI_Kelompok5
 ```
 
 ### Install Dependency
@@ -159,7 +153,7 @@ http://localhost:8501
 
 ## 👥 Tim Pengembang
 
-Proyek ini dikembangkan oleh Kelompok 5 pada Mata Kuliah Sistem Temu Kembali Informasi.
+LyrikMatch dikembangkan oleh Kelompok 5 pada Mata Kuliah Sistem Temu Kembali Informasi.
 
 | Nama | NPM | Kelas |
 |--------|--------|--------|
@@ -173,8 +167,7 @@ Proyek ini dikembangkan oleh Kelompok 5 pada Mata Kuliah Sistem Temu Kembali Inf
 
 ## 🎓 Mata Kuliah
 
-**Sistem Temu Kembali Informasi**
-
+**Sistem Temu Kembali Informasi**  
 Program Studi Teknik Informatika  
 Fakultas Matematika dan Ilmu Pengetahuan Alam  
 Universitas Lampung
@@ -183,6 +176,6 @@ Universitas Lampung
 
 ## 📄 Keterangan
 
-Proyek ini merupakan hasil pengerjaan Proyek Akhir yang disusun untuk memenuhi salah satu persyaratan Ujian Akhir Semester (UAS) pada Mata Kuliah Sistem Temu Kembali Informasi, Program Studi Teknik Informatika, Fakultas Matematika dan Ilmu Pengetahuan Alam, Universitas Lampung.
+LyrikMatch merupakan hasil pengerjaan Proyek Akhir yang disusun untuk memenuhi salah satu persyaratan Ujian Akhir Semester (UAS) pada Mata Kuliah Sistem Temu Kembali Informasi, Program Studi Teknik Informatika, Fakultas Matematika dan Ilmu Pengetahuan Alam, Universitas Lampung.
 
 Proyek ini dibuat untuk tujuan akademik, pembelajaran, dan pengembangan pengetahuan di bidang Sistem Temu Kembali Informasi.
