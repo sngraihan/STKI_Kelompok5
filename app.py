@@ -152,6 +152,7 @@ tab1, tab2 = st.tabs([
     "📊 Evaluation Dashboard"
 ])
 
+```python
 # ── TAB PENCARIAN ──
 with tab1:
 
@@ -181,85 +182,108 @@ with tab1:
         col1, col2 = st.columns(2)
 
         with col1:
-            
-           st.markdown(
-    "### 🔵 TF-IDF + Cosine Similarity"
-)
-    results_tfidf = search_tfidf(query)
-    for r in results_tfidf:
 
-        with st.expander(
-        f"🎵 #{r['rank']} {r['judul']}"
-    ):
+            st.markdown(
+                "### 🔵 TF-IDF + Cosine Similarity"
+            )
 
-        st.write(
-            f"**Penyanyi:** {r['penyanyi']}"
-        )
+            results_tfidf = search_tfidf(query)
 
-        st.metric(
-            "Skor Relevansi",
-            r['score']
-        )
+            for r in results_tfidf:
 
-        st.code(
-            r['lirik'],
-            language=None
-        )
+                with st.expander(
+                    f"🎵 #{r['rank']} {r['judul']}"
+                ):
+
+                    st.write(
+                        f"**Penyanyi:** {r['penyanyi']}"
+                    )
+
+                    st.metric(
+                        "Skor Relevansi",
+                        r['score']
+                    )
+
+                    st.code(
+                        r['lirik'],
+                        language=None
+                    )
 
         with col2:
+
             st.markdown(
-    "### 🟣 BM25 Retrieval"
-)
+                "### 🟣 BM25 Retrieval"
+            )
+
             results_bm25 = search_bm25(query)
+
             for r in results_bm25:
 
-    with st.expander(
-        f"🎵 #{r['rank']} {r['judul']}"
-    ):
+                with st.expander(
+                    f"🎵 #{r['rank']} {r['judul']}"
+                ):
 
-        st.write(
-            f"**Penyanyi:** {r['penyanyi']}"
-        )
+                    st.write(
+                        f"**Penyanyi:** {r['penyanyi']}"
+                    )
 
-        st.metric(
-            "Skor Relevansi",
-            r['score']
-        )
+                    st.metric(
+                        "Skor Relevansi",
+                        r['score']
+                    )
 
-        st.code(
-            r['lirik'],
-            language=None
-        )
+                    st.code(
+                        r['lirik'],
+                        language=None
+                    )
 
 # ── TAB EVALUASI ──
 with tab2:
+
     st.markdown(
-    "## 📊 Evaluation Dashboard"
-)
+        "## 📊 Evaluation Dashboard"
+    )
 
-st.info(
-    "Perbandingan performa TF-IDF dan BM25 "
-    "menggunakan 10 query uji."
-)
+    st.info(
+        "Perbandingan performa TF-IDF dan BM25 menggunakan 10 query uji."
+    )
 
-    # Buat ground truth dari dataset
     @st.cache_data
     def build_ground_truth():
         gt_songs = df.sample(10, random_state=99).reset_index(drop=True)
+
         queries = []
+
         for _, row in gt_songs.iterrows():
+
             words = row['lirik'].split()
+
             start = len(words) // 3
-            snippet = ' '.join(words[start:start + 20])
-            queries.append({'query': snippet, 'ground_truth': row['judul']})
+
+            snippet = ' '.join(
+                words[start:start + 20]
+            )
+
+            queries.append({
+                'query': snippet,
+                'ground_truth': row['judul']
+            })
+
         return queries
 
     test_queries = build_ground_truth()
 
     st.subheader("Ground Truth (10 Query Uji)")
+
     gt_df = pd.DataFrame(test_queries)
+
     gt_df.index = gt_df.index + 1
-    st.dataframe(gt_df, use_container_width=True)
+
+    st.dataframe(
+        gt_df,
+        use_container_width=True
+    )
+```
 
     if st.button("🚀 Jalankan Evaluasi", use_container_width=True):
         def evaluate(search_fn, queries):
