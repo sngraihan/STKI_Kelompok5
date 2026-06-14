@@ -30,6 +30,61 @@ def load_models():
 tfidf, tfidf_matrix, bm25, df = load_models()
 stop_words = set(stopwords.words('english'))
 
+# =========================
+# CUSTOM CSS
+# =========================
+
+st.markdown("""
+<style>
+
+.block-container{
+    padding-top:1rem;
+}
+
+.hero{
+    background:linear-gradient(
+        135deg,
+        #4f46e5,
+        #7c3aed
+    );
+
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    color:white;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:52px;
+    margin-bottom:5px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="hero">
+
+<h1>🎵 LyricMatch</h1>
+
+<p>
+Smart Lyrics Search Engine menggunakan
+TF-IDF dan BM25
+</p>
+
+<p>
+Temukan lagu favorit hanya dari
+potongan lirik yang Anda ingat
+</p>
+
+</div>
+""", unsafe_allow_html=True)
+
 def preprocess(text):
     if not isinstance(text, str):
         return ""
