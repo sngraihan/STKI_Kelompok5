@@ -385,7 +385,11 @@ Kelompok 5
 </p>
 
 <p>
-Teknik Informatika
+Temu Kembali Informasi
+</p>
+
+<p>
+S1 Ilmu Komputer
 Universitas Lampung
 </p>
 
