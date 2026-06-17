@@ -14,7 +14,7 @@ nltk.download('stopwords', quiet=True)
 
 st.set_page_config(
     page_title="LyricMatch",
-    page_icon="🎵",
+    page_icon="LM",
     layout="wide"
 )
 
@@ -37,31 +37,26 @@ stop_words = set(stopwords.words('english'))
 st.markdown("""
 <style>
 
-.block-container{
-    padding-top:1rem;
+.block-container {
+    padding-top: 1rem;
 }
 
-.hero{
-    background:linear-gradient(
-        135deg,
-        #4f46e5,
-        #7c3aed
-    );
-
-    padding:40px;
-    border-radius:20px;
-    text-align:center;
-    color:white;
-    margin-bottom:20px;
+.hero {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
 }
 
-.hero h1{
-    font-size:52px;
-    margin-bottom:5px;
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 5px;
 }
 
-.hero p{
-    font-size:18px;
+.hero p {
+    font-size: 18px;
 }
 
 </style>
@@ -69,19 +64,9 @@ st.markdown("""
 
 st.markdown("""
 <div class="hero">
-
-<h1>🎵 LyricMatch</h1>
-
-<p>
-Smart Lyrics Search Engine menggunakan
-TF-IDF dan BM25
-</p>
-
-<p>
-Temukan lagu favorit hanya dari
-potongan lirik yang Anda ingat
-</p>
-
+<h1>LyricMatch</h1>
+<p>Smart Lyrics Search Engine menggunakan TF-IDF dan BM25</p>
+<p>Temukan lagu favorit hanya dari potongan lirik yang Anda ingat</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -117,173 +102,80 @@ def search_bm25(query, top_k=5):
 # =========================
 
 with st.sidebar:
-
-    st.title("🎵 LyricMatch")
-
-    st.caption(
-        "Smart Lyrics Search Engine"
-    )
-
+    st.title("LyricMatch")
+    st.caption("Smart Lyrics Search Engine")
     st.markdown("---")
-
-    st.metric(
-        "🎼 Jumlah Lagu",
-        f"{len(df):,}"
-    )
-
-    st.metric(
-        "📚 Fitur TF-IDF",
-        f"{tfidf_matrix.shape[1]:,}"
-    )
-
+    st.metric("Jumlah Lagu", f"{len(df):,}")
+    st.metric("Fitur TF-IDF", f"{tfidf_matrix.shape[1]:,}")
     st.success("Model Aktif")
-
-    st.write("✅ TF-IDF + Cosine Similarity")
-    st.write("✅ BM25")
-
+    st.write("TF-IDF + Cosine Similarity")
+    st.write("BM25")
     st.markdown("---")
+    st.caption("Kelompok 5 - Temu Kembali Informasi - S1 Ilmu Komputer - Universitas Lampung")
 
-    st.caption(
-        "Kelompok 5 • Temu Kembali Informasi • S1 Ilmu Komputer • Universitas Lampung"
-    )
+tab1, tab2 = st.tabs(["Lyrics Search", "Evaluation Dashboard"])
 
-tab1, tab2 = st.tabs([
-    "🔍 Lyrics Search",
-    "📊 Evaluation Dashboard"
-])
-
-# ── TAB PENCARIAN ──
+# -- TAB PENCARIAN --
 with tab1:
-
-    st.markdown(
-        "## 🔍 Cari Lagu dari Potongan Lirik"
-    )
-
+    st.markdown("## Cari Lagu dari Potongan Lirik")
     st.info(
         "Masukkan sebagian lirik lagu yang Anda ingat. "
         "Sistem akan mencari lagu paling relevan "
         "menggunakan TF-IDF dan BM25."
     )
-
-    query = st.text_input(
-        "",
-        placeholder="🎵 Contoh: darling hold my hand ..."
-    )
+    query = st.text_input("", placeholder="Contoh: darling hold my hand ...")
 
     if query:
-
         preprocessed = preprocess(query)
-
-        st.caption(
-            f"Hasil preprocessing: `{preprocessed}`"
-        )
+        st.caption(f"Hasil preprocessing: `{preprocessed}`")
 
         col1, col2 = st.columns(2)
 
         with col1:
-
-            st.markdown(
-                "### 🔵 TF-IDF + Cosine Similarity"
-            )
-
+            st.markdown("### TF-IDF + Cosine Similarity")
             results_tfidf = search_tfidf(query)
-
             for r in results_tfidf:
-
-                with st.expander(
-                    f"🎵 #{r['rank']} {r['judul']}"
-                ):
-
-                    st.write(
-                        f"**Penyanyi:** {r['penyanyi']}"
-                    )
-
-                    st.metric(
-                        "Skor Relevansi",
-                        r['score']
-                    )
-
-                    st.code(
-                        r['lirik'],
-                        language=None
-                    )
+                with st.expander(f"#{r['rank']} {r['judul']}"):
+                    st.write(f"**Penyanyi:** {r['penyanyi']}")
+                    st.metric("Skor Relevansi", r['score'])
+                    st.code(r['lirik'], language=None)
 
         with col2:
-
-            st.markdown(
-                "### 🟣 BM25 Retrieval"
-            )
-
+            st.markdown("### BM25 Retrieval")
             results_bm25 = search_bm25(query)
-
             for r in results_bm25:
+                with st.expander(f"#{r['rank']} {r['judul']}"):
+                    st.write(f"**Penyanyi:** {r['penyanyi']}")
+                    st.metric("Skor Relevansi", r['score'])
+                    st.code(r['lirik'], language=None)
 
-                with st.expander(
-                    f"🎵 #{r['rank']} {r['judul']}"
-                ):
-
-                    st.write(
-                        f"**Penyanyi:** {r['penyanyi']}"
-                    )
-
-                    st.metric(
-                        "Skor Relevansi",
-                        r['score']
-                    )
-
-                    st.code(
-                        r['lirik'],
-                        language=None
-                    )
-
-# ── TAB EVALUASI ──
+# -- TAB EVALUASI --
 with tab2:
-
-    st.markdown(
-        "## 📊 Evaluation Dashboard"
-    )
-
-    st.info(
-        "Perbandingan performa TF-IDF dan BM25 menggunakan 10 query uji."
-    )
+    st.markdown("## Evaluation Dashboard")
+    st.info("Perbandingan performa TF-IDF dan BM25 menggunakan 10 query uji.")
 
     @st.cache_data
     def build_ground_truth():
         gt_songs = df.sample(10, random_state=99).reset_index(drop=True)
-
         queries = []
-
         for _, row in gt_songs.iterrows():
-
             words = row['lirik'].split()
-
             start = len(words) // 3
-
-            snippet = ' '.join(
-                words[start:start + 20]
-            )
-
+            snippet = ' '.join(words[start:start + 20])
             queries.append({
                 'query': snippet,
                 'ground_truth': row['judul']
             })
-
         return queries
 
     test_queries = build_ground_truth()
 
     st.subheader("Ground Truth (10 Query Uji)")
-
     gt_df = pd.DataFrame(test_queries)
-
     gt_df.index = gt_df.index + 1
+    st.dataframe(gt_df, use_container_width=True)
 
-    st.dataframe(
-        gt_df,
-        use_container_width=True
-    )
-
-    if st.button("🚀 Jalankan Evaluasi", use_container_width=True):
+    if st.button("Jalankan Evaluasi", use_container_width=True):
         def evaluate(search_fn, queries):
             rows = []
             total_ap = 0.0
@@ -369,29 +261,12 @@ with tab2:
         axes[1].legend()
 
         plt.tight_layout()
-        st.markdown("---")
+        st.pyplot(fig)
 
 st.markdown("""
-<div style="text-align:center;color:gray;">
-
-<h3>🎵 LyricMatch</h3>
-
-<p>
-Smart Lyrics Search Engine
-</p>
-
-<p>
-Kelompok 5
-</p>
-
-<p>
-Temu Kembali Informasi
-</p>
-
-<p>
-S1 Ilmu Komputer
-Universitas Lampung
-</p>
-
+<div style="text-align:center; color:gray; margin-top:40px;">
+<h3>LyricMatch</h3>
+<p>Smart Lyrics Search Engine</p>
+<p>Kelompok 5 - Temu Kembali Informasi - S1 Ilmu Komputer - Universitas Lampung</p>
 </div>
 """, unsafe_allow_html=True)
